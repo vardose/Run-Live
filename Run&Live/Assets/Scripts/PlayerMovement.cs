@@ -8,6 +8,7 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     public TMP_Text velocity_text;
+    
     [Header("Movement")] public float moveSpeed = 10f;
     public float jumpForce = 10f ;
 
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveInput;
     private Vector3 moveDir;
-    private float gravity = -3.81f;
+    private float gravity = -1f;
     private Rigidbody rb;
 
     private ControlMap controlMap;
@@ -32,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         controlMap = new ControlMap();
         controlMap.Player.Enable();
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
         jumpedInAir = false;
     }
 
@@ -47,26 +47,17 @@ public class PlayerMovement : MonoBehaviour
             jumpedInAir = false;
         }
         else
-        { 
-            rb.AddForce( transform.up * gravity, ForceMode.Force);
+        {
+            rb.AddForce(transform.up * gravity, ForceMode.Force);
         }
         if (controlMap.Player.Jump.triggered) {
             Jump();
         }
-
-        if (rb.velocity.magnitude <= 0.1f)
-        {
-            velocity_text.text = "Speed : 0";
-        }
-        else
-        {
-            velocity_text.text = "Speed : "+ rb.velocity.magnitude;
-        }
+        velocity_text.text = "Speed : "+ Math.Round(rb.velocity.magnitude);
     }
 
     private void FixedUpdate()
     {
-        
         if (moveInput != Vector2.zero)
         {
             MovePlayer();
