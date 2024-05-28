@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class lifeManager : MonoBehaviour
 {
     public static bool shield;
+    public GameObject shield_Sprite;
     public GameObject deathScreen;
     
     private Rigidbody rb;
@@ -25,6 +26,7 @@ public class lifeManager : MonoBehaviour
         if (Collectible.score >= 5 && shield == false)
         {
             shield = true;
+            shield_Sprite.SetActive(true);
             Collectible.score -= 5;
         }
     }
@@ -39,6 +41,7 @@ public class lifeManager : MonoBehaviour
         {
             if (shield)
             {
+                shield_Sprite.SetActive(false);
                 shield = false;
             }
             else

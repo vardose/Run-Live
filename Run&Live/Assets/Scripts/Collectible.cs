@@ -6,9 +6,14 @@ using TMPro;
 
 public class Collectible : MonoBehaviour
 {
-    public static int score = 0;
+    public static int score;
     public TMP_Text score_text;
-    
+
+    private void Start()
+    {
+        score = 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "collectible")

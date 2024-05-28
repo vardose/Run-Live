@@ -134,6 +134,34 @@ public partial class @ControlMap: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""ccb90411-8a61-466c-b549-e45eae0e164c"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""7bcd810a-f0c8-4062-a8e9-897f9ccaa449"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""da15fc0f-29a2-4ed4-8e29-ad8836dbe604"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -143,6 +171,9 @@ public partial class @ControlMap: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_ToggleMenu = m_Menu.FindAction("ToggleMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,10 +293,60 @@ public partial class @ControlMap: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_ToggleMenu;
+    public struct MenuActions
+    {
+        private @ControlMap m_Wrapper;
+        public MenuActions(@ControlMap wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleMenu => m_Wrapper.m_Menu_ToggleMenu;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @ToggleMenu.started += instance.OnToggleMenu;
+            @ToggleMenu.performed += instance.OnToggleMenu;
+            @ToggleMenu.canceled += instance.OnToggleMenu;
+        }
+
+        private void UnregisterCallbacks(IMenuActions instance)
+        {
+            @ToggleMenu.started -= instance.OnToggleMenu;
+            @ToggleMenu.performed -= instance.OnToggleMenu;
+            @ToggleMenu.canceled -= instance.OnToggleMenu;
+        }
+
+        public void RemoveCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnToggleMenu(InputAction.CallbackContext context);
     }
 }

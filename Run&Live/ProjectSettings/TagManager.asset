@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - collectible
+  - damage
   layers:
   - Default
   - TransparentFX
