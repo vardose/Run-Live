@@ -42,7 +42,7 @@ public class EnnemyAi : MonoBehaviour
 
         GameObject bulletObj = Instantiate(ennemyBullet, spawnPoint.transform.position, Quaternion.identity) as GameObject;
         Rigidbody bulletRig = bulletObj.GetComponent<Rigidbody>();
-        bulletRig.AddForce( transform.forward * 15f, ForceMode.Impulse);
+        bulletRig.AddForce( transform.forward * 20f, ForceMode.Impulse);
         
         Destroy(bulletObj, 5f);
     }
