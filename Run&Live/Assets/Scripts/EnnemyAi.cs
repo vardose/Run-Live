@@ -6,9 +6,11 @@ using UnityEngine;
 public class EnnemyAi : MonoBehaviour
 {
     public GameObject player;
-    
+    public LayerMask whatisplayer;
     private float timer = 2f;
     private float bulletTime;
+    private float range = 20f;
+    public Animator animator;
 
     public GameObject ennemyBullet;
     public Transform spawnPoint;
@@ -16,7 +18,19 @@ public class EnnemyAi : MonoBehaviour
     private void Update()
     {
         gameObject.transform.LookAt(player.transform);
-        ShootAtPlayer();
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        
+        //  Physics.Raycast(transform.position, player.transform.position, range);
+        bool inRange = Physics.CheckSphere(transform.position, range, whatisplayer);
+        if (inRange)
+        {
+            animator.SetBool("inRange", true);
+            ShootAtPlayer();
+        }
+        else
+        {
+            animator.SetBool("inRange", false);
+        }
     }
 
     void ShootAtPlayer()
