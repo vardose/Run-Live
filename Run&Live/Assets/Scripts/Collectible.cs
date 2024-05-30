@@ -18,9 +18,16 @@ public class Collectible : MonoBehaviour
     {
         if (other.transform.tag == "collectible")
         {
+            ParticleSystem particleSystem = other.gameObject.GetComponent<ParticleSystem>();
             score ++;
             score_text.text = "Score : " + score;
-            Destroy(other.gameObject);
+
+            ParticleSystem.EmissionModule em = particleSystem.emission;
+            em.enabled = true;
+            particleSystem.Play();
+            
+            Destroy(other.gameObject.GetComponent<SpriteRenderer>());
+            Destroy(other.gameObject, particleSystem.duration);
         }
     }
 }
