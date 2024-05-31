@@ -33,11 +33,6 @@ Plusieurs fonctionnalités ont été développées :
 - Ennemis 
 
 - Collectibles qui régénèrent le shield
-## Authors
-
-- [@vardose](https://www.github.com/vardose)
-
-
 ## Contrôles
 
 Utilisez Z,Q,S,D pour vous déplacer, ESPACE pour sauter et pour mettre pause il faut appuyer sur P et non ECHAP.
@@ -49,5 +44,12 @@ Le menu gameOver se déclenche à la mort du personne, attention il n'y a pas de
 
 ## avertissement
 
+Vous retrouverez dans la release sur ce répo le build du jeu.
 Si jamais vous voulez modifier des valeurs, je n'ai pas eu le temps pour cette version de rajouter des settings, je vous recommande de clone le projet et d'aller les modifiers dans l'éditeur.
+
+## Authors
+
+- [@vardose](https://www.github.com/vardose)
+
+
 ## Bon jeu à vous !
