@@ -8589,7 +8589,6 @@ Transform:
   - {fileID: 173155935}
   - {fileID: 272811498}
   - {fileID: 1242568709}
-  - {fileID: 1108351747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1108351746
@@ -8606,8 +8605,8 @@ GameObject:
   - component: {fileID: 1108351749}
   - component: {fileID: 1108351748}
   m_Layer: 0
-  m_Name: Cube (6)
-  m_TagString: Untagged
+  m_Name: End
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8621,11 +8620,11 @@ Transform:
   m_GameObject: {fileID: 1108351746}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 137.6, y: 2.7099998, z: -43.6}
+  m_LocalPosition: {x: 237.6, y: 2.96, z: 97.4}
   m_LocalScale: {x: 93.67165, y: 3, z: 93.67165}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1081557632}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1108351748
 MonoBehaviour:
@@ -12464,3 +12463,4 @@ SceneRoots:
   - {fileID: 1868311325}
   - {fileID: 154224088}
   - {fileID: 8577157810159010832}
+  - {fileID: 1108351747}
