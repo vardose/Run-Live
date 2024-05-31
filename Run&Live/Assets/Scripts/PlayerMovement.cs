@@ -51,14 +51,16 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(transform.up * gravity, ForceMode.Force);
         }
-        if (controlMap.Player.Jump.triggered) {
+
+        if (controlMap.Player.Jump.triggered)
+        {
             Jump();
         }
-        velocity_text.text = "Speed : "+ Math.Round(rb.velocity.magnitude);
     }
 
     private void FixedUpdate()
     {
+        velocity_text.text = "Speed : "+ Math.Round(rb.velocity.magnitude);
         if (moveInput != Vector2.zero)
         {
             MovePlayer();

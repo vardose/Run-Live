@@ -27,7 +27,7 @@ public class Collectible : MonoBehaviour
             particleSystem.Play();
             
             Destroy(other.gameObject.GetComponent<SpriteRenderer>());
-            Destroy(other.gameObject, particleSystem.duration);
+            Destroy(other.gameObject, particleSystem.main.duration);
         }
     }
 }
